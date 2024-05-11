@@ -1,0 +1,338 @@
+package metodos;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class metodos {
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static String menuPrincipal() {
+        System.out.println("\nBienvenido a Fiku!");
+
+        boolean salir = false;
+        String opcionSeleccionada;
+
+        do {
+            System.out.println("\n--- Menú ---");
+            System.out.println("1. Abrir conversaciones");
+            System.out.println("2. Ver perfiles");
+            System.out.println("3. Ver mi perfil");
+            System.out.println("0. Salir");
+
+            opcionSeleccionada = solicitarOpcion();
+
+            switch (opcionSeleccionada) {
+                case "1":
+                    abrirConversaciones();
+                    break;
+                case "2":
+                    verPerfiles();
+                    break;
+                case "3":
+                    verMiPerfil();
+                    break;
+                case "0":
+                    salir = true;
+                    break;
+                default:
+                    System.out.println("Opción no válida. Inténtalo de nuevo.");
+            }
+        } while (!salir);
+
+        System.out.println("\n¡Que tengas un buen día!");
+        System.out.println("\nSaliendo del programa.");
+        return opcionSeleccionada;
+    }
+
+    private static String solicitarOpcion() {
+        String opcion;
+        do {
+            System.out.print("\nSelecciona una opción: ");
+            opcion = scanner.nextLine().trim();
+            if (!opcion.matches("[0-3]")) {
+                System.out.println("Por favor, introduce un número válido: ");
+            }
+        } while (!opcion.matches("[0-3]"));
+        return opcion;
+    }
+
+    private static void abrirConversaciones() {
+        System.out.println("\nAbriendo conversaciones...");
+        // Implementa la lógica para abrir conversaciones aquí
+        // Por ejemplo:
+        System.out.println("Conversaciones abiertas.");
+    }
+
+    private static void verPerfiles() {
+        System.out.println("\n--- Visualizando perfiles ---");
+        boolean salir = false;
+        List<String> likes = new ArrayList<>(); // Lista para almacenar los usuarios a los que se les ha dado like
+
+        boolean chicosSeleccionados = false;
+        boolean chicasSeleccionadas = false;
+
+        while (!salir) {
+            String eleccion = selectProfileType();
+
+            switch (eleccion) {
+                case "chicos":
+                    if (chicosSeleccionados) {
+                        System.out.println("Ya has seleccionado la opción de chicos. Elige otra opción.");
+                        continue;
+                    }
+                    chicosSeleccionados = true;
+                    chicasSeleccionadas = false; // Reiniciar la selección de chicas
+                    break;
+                case "chicas":
+                    if (chicasSeleccionadas) {
+                        System.out.println("Ya has seleccionado la opción de chicas. Elige otra opción.");
+                        continue;
+                    }
+                    chicasSeleccionadas = true;
+                    chicosSeleccionados = false; // Reiniciar la selección de chicos
+                    break;
+                case "ambos":
+                    chicosSeleccionados = true;
+                    chicasSeleccionadas = true;
+                    break;
+                case "salir":
+                    salir = true; // Salir del bucle
+                    break; // Terminar la ejecución del switch
+                default:
+                    System.out.println("Elección no válida. Inténtalo de nuevo.");
+                    continue;
+            }
+
+            // Si se selecciona la opción "salir", salir del bucle sin ejecutar el resto del código
+            if (salir) {
+                break;
+            }
+
+            // Resto del código para mostrar perfiles
+            List<String> usuarios = generarUsuarios(chicosSeleccionados, chicasSeleccionadas);
+            System.out.println("\nPerfiles disponibles:");
+            for (String usuario : usuarios) {
+                boolean likeDado = darLike(usuario); // Verificar si se dio like
+                if (likeDado) {
+                    likes.add(usuario); // Agregar el usuario a la lista de likes
+                }
+            }
+
+            // Mostrar la lista de likes
+            System.out.println("\nUsuarios a los que les has dado like:");
+            for (String like : likes) {
+                System.out.println(like);
+            }
+        }
+    }
+
+    public static String selectProfileType() {
+        String eleccion;
+        do {
+            System.out.println("\n¿Qué tipo de perfiles te gustaría ver? (Chicos/Chicas/Ambos/Salir)");
+            eleccion = scanner.nextLine().trim().toLowerCase();
+            if (!eleccion.equals("chicos") && !eleccion.equals("chicas") && !eleccion.equals("ambos") && !eleccion.equals("salir")) {
+                System.out.println("Elección no válida. Inténtalo de nuevo.");
+            }
+        } while (!eleccion.equals("chicos") && !eleccion.equals("chicas") && !eleccion.equals("ambos") && !eleccion.equals("salir"));
+        return eleccion;
+    }
+
+    public static List<String> generarUsuarios(boolean chicosSeleccionados, boolean chicasSeleccionadas) {
+        List<String> usuarios = new ArrayList<>();
+
+        if (chicosSeleccionados) {
+            usuarios.addAll(List.of("Adrian", "Juan", "Pedro", "Javier", "Pablo", "Andres", "Roberto", "Bruno"));
+        }
+
+        if (chicasSeleccionadas) {
+            usuarios.addAll(List.of("Maria", "Alba", "Pilar", "Astrid", "Sara", "Laura", "Rocio", "Sonia"));
+        }
+
+        return usuarios;
+    }
+
+    public static boolean darLike(String usuario) {
+        String respuesta;
+        boolean mensajeMostrado = false;
+
+        do {
+            if (!mensajeMostrado) {
+                System.out.println("¿Te gusta " + usuario + "? (Si/No)");
+            }
+
+            respuesta = scanner.nextLine().trim().toLowerCase();
+
+            switch (respuesta) {
+                case "si":
+                    if (!mensajeMostrado) {
+                        System.out.println("Like");
+                        mensajeMostrado = true;
+                    }
+                    return true;
+                case "no":
+                    if (!mensajeMostrado) {
+                        System.out.println("Skip");
+                        mensajeMostrado = true;
+                    }
+                    return false;
+                default:
+                    System.out.println("\nRespuesta no válida. Por favor, responde con 'Si' o 'No'.");
+            }
+        } while (true);
+    }
+    
+    
+
+    private static Perfil miPerfil;
+
+     static {
+        miPerfil = verMiPerfil();
+        mostrarMiPerfil();
+        // Aquí puedes agregar la lógica para mostrar el menú principal o realizar otras operaciones con el perfil
+    }
+
+    static {
+        System.out.println("Bienvenido a Fiku!");
+        miPerfil = verMiPerfil();
+        mostrarMiPerfil();
+        // Aquí puedes agregar la lógica para mostrar el menú principal de Fiku o realizar otras operaciones con el perfil
+    }
+
+    private static Perfil verMiPerfil() {
+        System.out.println("\nAbriendo tu perfil...");
+        if (miPerfil != null) {
+            return miPerfil; // Si el perfil ya existe, devolverlo
+        }
+        
+        System.out.println("Creación de perfil:");
+        System.out.print("Nombre de Usuario: ");
+        String nombreDeUsuario = scanner.nextLine();
+        int edad = solicitarEdad(); // Solicitar edad con validación
+        String genero = solicitarGenero(); // Solicitar género con validación
+        System.out.print("Descripción: ");
+        String descripcion = scanner.nextLine();
+        System.out.print("Intereses: ");
+        String intereses = scanner.nextLine();
+        System.out.print("Nacionalidad: ");
+        String nacionalidad = scanner.nextLine();
+        System.out.print("Ciudad: ");
+        String ciudad = scanner.nextLine();
+        System.out.print("Lugar de Estudios: ");
+        String lugarDeEstudios = scanner.nextLine();
+        String preferenciaDeBusqueda = solicitarPreferenciaDeBusqueda(); // Solicitar preferencia de búsqueda con validación
+        int distanciaDeBusqueda = solicitarDistanciaDeBusqueda(); // Solicitar distancia de búsqueda con validación
+
+        miPerfil = new Perfil(nombreDeUsuario, edad, genero, descripcion, intereses, nacionalidad, ciudad, lugarDeEstudios, preferenciaDeBusqueda, distanciaDeBusqueda);
+        return miPerfil;
+    }
+
+    public static void mostrarMiPerfil() {
+        if (miPerfil == null) {
+            System.out.println("No se ha creado un perfil aún.");
+            return;
+        }
+
+        System.out.println("\nPerfil:");
+        miPerfil.mostrarPerfil();
+    }
+
+    private static int solicitarEdad() {
+        int edad;
+        do {
+            System.out.print("Edad (debe ser mayor de 18): ");
+            while (!scanner.hasNextInt()) {
+                System.out.print("Por favor, ingrese un número entero válido para la edad: ");
+                scanner.next();
+            }
+            edad = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el buffer del teclado
+            if (edad <= 17) {
+                System.out.println("La edad debe ser mayor de 18 años.");
+            }
+        } while (edad <= 17);
+        return edad;
+    }
+
+    private static String solicitarGenero() {
+        String genero;
+        do {
+            System.out.print("Género (hombre/mujer): ");
+            genero = scanner.nextLine().toLowerCase();
+            if (!genero.equals("hombre") && !genero.equals("mujer")) {
+                System.out.println("El género debe ser 'hombre' o 'mujer'.");
+            }
+        } while (!genero.equals("hombre") && !genero.equals("mujer"));
+        return genero;
+    }
+
+    private static String solicitarPreferenciaDeBusqueda() {
+        String preferencia;
+        do {
+            System.out.print("Preferencia de Búsqueda (hombre/mujer/ambos): ");
+            preferencia = scanner.nextLine().toLowerCase();
+            if (!preferencia.equals("hombre") && !preferencia.equals("mujer") && !preferencia.equals("ambos")) {
+                System.out.println("La preferencia de búsqueda debe ser 'hombre', 'mujer' o 'ambos'.");
+            }
+        } while (!preferencia.equals("hombre") && !preferencia.equals("mujer") && !preferencia.equals("ambos"));
+        return preferencia;
+    }
+
+    private static int solicitarDistanciaDeBusqueda() {
+        int distancia;
+        do {
+            System.out.print("Distancia de Búsqueda en kilometros: ");
+            while (!scanner.hasNextInt()) {
+                System.out.print("Por favor, ingrese un número entero válido para la distancia de búsqueda: ");
+                scanner.next();
+            }
+            distancia = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el buffer del teclado
+            if (distancia <= 0) {
+                System.out.println("La distancia de búsqueda sera en kilometros.");
+            }
+        } while (distancia <= 0);
+        return distancia;
+    }
+}
+
+class Perfil {
+    private final String nombreDeUsuario;
+    private final int edad;
+    private final String genero;
+    private final String descripcion;
+    private final String intereses;
+    private final String nacionalidad;
+    private final String ciudad;
+    private final String lugarDeEstudios;
+    private final String preferenciaDeBusqueda;
+    private final int distanciaDeBusqueda;
+
+    public Perfil(String nombreDeUsuario, int edad, String genero, String descripcion, String intereses, String nacionalidad, String ciudad, String lugarDeEstudios, String preferenciaDeBusqueda, int distanciaDeBusqueda) {
+        this.nombreDeUsuario = nombreDeUsuario;
+        this.edad = edad;
+        this.genero = genero;
+        this.descripcion = descripcion;
+        this.intereses = intereses;
+        this.nacionalidad = nacionalidad;
+        this.ciudad = ciudad;
+        this.lugarDeEstudios = lugarDeEstudios;
+        this.preferenciaDeBusqueda = preferenciaDeBusqueda;
+        this.distanciaDeBusqueda = distanciaDeBusqueda;
+    }
+
+    public void mostrarPerfil() {
+        System.out.println("Nombre de Usuario: " + nombreDeUsuario);
+        System.out.println("Edad: " + edad);
+        System.out.println("Género: " + genero);
+        System.out.println("Descripción: " + descripcion);
+        System.out.println("Intereses: " + intereses);
+        System.out.println("Nacionalidad: " + nacionalidad);
+        System.out.println("Ciudad: " + ciudad);
+        System.out.println("Lugar de Estudios: " + lugarDeEstudios);
+        System.out.println("Preferencia de Búsqueda: " + preferenciaDeBusqueda);
+        System.out.println("Distancia de Búsqueda: " + distanciaDeBusqueda);
+    }
+}
