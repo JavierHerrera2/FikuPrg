@@ -1,3 +1,6 @@
+Estos son todos los metodos que se usan y por lo tanto se iran explicando en esta rama.
+Por aqui todo el codigo ya que algunos metodos llaman a otros metodos,
+
 package metodos;
 
 import java.util.ArrayList;
