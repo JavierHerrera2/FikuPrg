@@ -1,0 +1,63 @@
+Función:
+Este método es el principal de la aplicación "Fiku". Muestra un menú al usuario con diferentes opciones y ejecuta la acción correspondiente según la opción seleccionada por el usuario.
+
+Detalles:
+-Mensaje de bienvenida: Imprime un mensaje de bienvenida al usuario cuando inicia la aplicación.
+-Bucle do-while: Ejecuta el bloque de código al menos una vez y luego se repite hasta que la variable salir se establece en true.
+-Menú de opciones: Imprime un menú con las siguientes opciones:
+1.Abrir conversaciones
+2.Ver perfiles
+3.Ver mi perfil
+0.Salir
+-Solicitar opción: Llama al método solicitarOpcion() para obtener la opción seleccionada por el usuario.
+-Switch-case: Basado en la opción seleccionada por el usuario, ejecuta la acción correspondiente:
+Si selecciona "1", llama al método abrirConversaciones().
+Si selecciona "2", llama al método verPerfiles().
+Si selecciona "3", llama al método verMiPerfil().
+Si selecciona "0", establece la variable salir en true, lo que termina el bucle y la aplicación.
+Si escribes cualquier otra cosa, imprime un mensaje indicando que la opción no es válida y solicita al usuario que lo intente nuevamente.
+-Mensaje de despedida: Una vez que el usuario decide salir de la aplicación, se imprime un mensaje de despedida.
+Retorno:
+El método retorna la opción seleccionada por el usuario.
+
+Uso:
+Este método se llama cuando se inicia la aplicación "Fiku" y se utiliza para proporcionar una interfaz de usuario para que el usuario interactúe con diferentes características de la aplicación.
+
+
+public static String menuPrincipal() {
+        System.out.println("\nBienvenido a Fiku!");
+
+        boolean salir = false;
+        String opcionSeleccionada;
+
+        do {
+            System.out.println("\n--- Menú ---");
+            System.out.println("1. Abrir conversaciones");
+            System.out.println("2. Ver perfiles");
+            System.out.println("3. Ver mi perfil");
+            System.out.println("0. Salir");
+
+            opcionSeleccionada = solicitarOpcion();
+
+            switch (opcionSeleccionada) {
+                case "1":
+                    abrirConversaciones();
+                    break;
+                case "2":
+                    verPerfiles();
+                    break;
+                case "3":
+                    verMiPerfil();
+                    break;
+                case "0":
+                    salir = true;
+                    break;
+                default:
+                    System.out.println("Opción no válida. Inténtalo de nuevo.");
+            }
+        } while (!salir);
+
+        System.out.println("\n¡Que tengas un buen día!");
+        System.out.println("\nSaliendo del programa.");
+        return opcionSeleccionada;
+    }
