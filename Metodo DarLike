@@ -1,0 +1,53 @@
+Función:
+Este método permite al usuario indicar si le gusta o no un usuario específico en la aplicación "Fiku".
+
+Detalles:
+Parámetro:
+usuario: El nombre del usuario al que se le está pidiendo al usuario si le gusta.
+Bucle do-while:
+Este bucle se ejecuta hasta que el usuario proporciona una respuesta válida ('si' o 'no').
+Mensaje de solicitud:
+Se muestra al usuario una pregunta preguntando si le gusta el usuario especificado.
+Lectura de respuesta:
+Lee la respuesta del usuario utilizando scanner.nextLine() y la convierte a minúsculas para facilitar la comparación.
+Switch-case:
+Según la respuesta del usuario, se ejecutan las siguientes acciones:
+Si la respuesta es "si", se imprime "Like" y se devuelve true.
+Si la respuesta es "no", se imprime "Skip" y se devuelve false.
+Si la respuesta no es válida, se imprime un mensaje de error y se solicita al usuario que responda con "si" o "no".
+Retorno:
+Retorna true si al usuario le gusta el usuario especificado y false si no.
+Uso:
+Este método se utiliza en la aplicación "Fiku" para permitir al usuario indicar su preferencia (me gusta o no me gusta) respecto a un usuario específico.
+
+
+
+public static boolean darLike(String usuario) {
+        String respuesta;
+        boolean mensajeMostrado = false;
+
+        do {
+            if (!mensajeMostrado) {
+                System.out.println("¿Te gusta " + usuario + "? (Si/No)");
+            }
+
+            respuesta = scanner.nextLine().trim().toLowerCase();
+
+            switch (respuesta) {
+                case "si":
+                    if (!mensajeMostrado) {
+                        System.out.println("Like");
+                        mensajeMostrado = true;
+                    }
+                    return true;
+                case "no":
+                    if (!mensajeMostrado) {
+                        System.out.println("Skip");
+                        mensajeMostrado = true;
+                    }
+                    return false;
+                default:
+                    System.out.println("\nRespuesta no válida. Por favor, responde con 'Si' o 'No'.");
+            }
+        } while (true);
+    }
