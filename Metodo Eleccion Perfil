@@ -1,0 +1,30 @@
+Función:
+Este método solicita al usuario que elija el tipo de perfiles que desea ver (chicos, chicas, ambos o salir) y devuelve la opción seleccionada.
+
+Detalles:
+-Bucle do-while: Ejecuta el bloque de código al menos una vez y luego se repite hasta que el usuario ingresa una opción válida o elige salir.
+-Mensaje de solicitud: Imprime un mensaje pidiendo al usuario que elija el tipo de perfiles que desea ver.
+-Solicitar entrada del usuario: Lee la entrada del usuario utilizando scanner.nextLine() y la convierte a minúsculas para facilitar la comparación.
+-Validación de entrada: Verifica si la opción ingresada por el usuario es válida. Si no lo es, imprime un mensaje de error y solicita al usuario que ingrese la opción nuevamente.
+-Retorno de la opción seleccionada: Una vez que el usuario ingresa una opción válida, el método devuelve esa opción.
+Retorno:
+El método retorna la opción seleccionada por el usuario (chicos, chicas, ambos o salir).
+
+Uso:
+Este método se utiliza en la aplicación "Fiku" para permitir al usuario elegir el tipo de perfiles que desea ver.
+
+Comentarios adicionales:
+Asegúrate de que scanner esté correctamente inicializado antes de llamar a este método. En el código proporcionado, scanner parece ser una variable de clase estática.
+Puedes agregar comentarios adicionales dentro del método para explicar cada parte del código en más detalle si es necesario.
+
+public static String selectProfileType() {
+        String eleccion;
+        do {
+            System.out.println("\n¿Qué tipo de perfiles te gustaría ver? (Chicos/Chicas/Ambos/Salir)");
+            eleccion = scanner.nextLine().trim().toLowerCase();
+            if (!eleccion.equals("chicos") && !eleccion.equals("chicas") && !eleccion.equals("ambos") && !eleccion.equals("salir")) {
+                System.out.println("Elección no válida. Inténtalo de nuevo.");
+            }
+        } while (!eleccion.equals("chicos") && !eleccion.equals("chicas") && !eleccion.equals("ambos") && !eleccion.equals("salir"));
+        return eleccion;
+    }
