@@ -1,0 +1,14 @@
+package mainfiku;
+
+import metodos.metodos;
+
+public class mainfiku {
+     
+    public static void main(String[] args) {
+        String opcionSeleccionada;
+
+        do {
+            opcionSeleccionada = metodos.menuPrincipal();
+        } while (!opcionSeleccionada.equals("0"));
+    }
+}
