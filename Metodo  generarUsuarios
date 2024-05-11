@@ -1,0 +1,31 @@
+Este método generarUsuarios() genera una lista de nombres de usuarios según las preferencias seleccionadas por el usuario en la aplicación "Fiku". Aquí tienes un resumen:
+
+Función:
+Este método genera una lista de nombres de usuarios según las preferencias de género seleccionadas por el usuario (chicos, chicas o ambos).
+
+Detalles:
+Parámetros:
+-chicosSeleccionados: Indica si se han seleccionado perfiles de chicos.
+-chicasSeleccionadas: Indica si se han seleccionado perfiles de chicas.
+Lista de nombres de usuarios:
+Si se han seleccionado perfiles de chicos (chicosSeleccionados es true), se agregan nombres de chicos a la lista.
+Si se han seleccionado perfiles de chicas (chicasSeleccionadas es true), se agregan nombres de chicas a la lista.
+Retorno:
+Retorna una lista de nombres de usuarios que cumplen con las preferencias de género seleccionadas.
+Uso:
+Este método se utiliza en la aplicación "Fiku" para generar una lista de nombres de usuarios que coincidan con las preferencias de género seleccionadas por el usuario.
+ 
+
+public static List<String> generarUsuarios(boolean chicosSeleccionados, boolean chicasSeleccionadas) {
+        List<String> usuarios = new ArrayList<>();
+
+        if (chicosSeleccionados) {
+            usuarios.addAll(List.of("Adrian", "Juan", "Pedro", "Javier", "Pablo", "Andres", "Roberto", "Bruno"));
+        }
+
+        if (chicasSeleccionadas) {
+            usuarios.addAll(List.of("Maria", "Alba", "Pilar", "Astrid", "Sara", "Laura", "Rocio", "Sonia"));
+        }
+
+        return usuarios;
+    }
